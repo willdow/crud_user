@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-gray-900">Users</h1>
+  <a href="{% url 'user-create' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+    Add User
+  </a>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for user_obj in users %}
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="w-full h-48 bg-indigo-200 flex justify-center items-center">
+      <span class="text-4xl font-bold text-indigo-600">{{ user_obj.username|first|upper }}</span>
+    </div>
+    <div class="p-4">
+      <h2 class="text-xl font-semibold text-gray-800">{{ user_obj.username }}</h2>
+      <p class="text-gray-600">{{ user_obj.first_name }} {{ user_obj.last_name }}</p>
+      <p class="text-gray-600">Is eating healthy: {{ user_obj.is_eating_healthy }}</p>
+      <p class="text-gray-600">Is playing sport: {{ user_obj.is_playing_sport }}</p>
+      <p class="text-gray-600">Is intellectually stimulated: {{ user_obj.is_intellectually_stimulated }}</p>
+      <div class="mt-4 truncate">
+        <p class="text-gray-500">{{ user_obj.bio|default:"No bio available"|truncatechars:100 }}</p>
+      </div>
+      <div class="mt-4">
+        <a href="{% url 'user-detail' user_obj.pk %}"
+          class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+          View Profile
+        </a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-span-full bg-blue-100 text-blue-700 p-4 rounded-md">
+    No users found.
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

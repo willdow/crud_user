@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete User{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+  <div class="bg-red-600 px-6 py-4">
+    <h2 class="text-xl font-bold text-white">Delete User</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-lg text-gray-700 mb-6">
+      Are you sure you want to delete the user "{{ object.username }}"?
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="flex space-x-4">
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          Confirm Delete
+        </button>
+        <a href="{% url 'user-detail' object.pk %}"
+          class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
